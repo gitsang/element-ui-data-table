@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <el-button @click="$refs.table.getTableData()">Refresh</el-button>
+    A -------------------------------------------------------------------------
     <template>
       <el-table
+        A
         :data="tableData"
         width="100%"
         @expand="rowExpand"
@@ -65,6 +66,46 @@
         <el-table-column label="uuid" prop="uuid"> </el-table-column>
       </el-table>
     </template>
+
+    B -------------------------------------------------------------------------
+
+    <template>
+      <el-table :data="tableData2" width="100%" border resizable>
+        <el-table-column type="expand">
+          <template slot-scope="props">
+            <span> {{ props.row.ids }} </span>
+          </template>
+        </el-table-column>
+        <el-table-column label="db" prop="db"> </el-table-column>
+        <el-table-column label="tab" prop="tab"> </el-table-column>
+        <el-table-column label="uuid" prop="uuid"> </el-table-column>
+        <el-table-column label="result" prop="result"> </el-table-column>
+        <el-table-column label="count" prop="count"> </el-table-column>
+      </el-table>
+    </template>
+
+    C -------------------------------------------------------------------------
+
+    <template>
+      <el-table :data="tableData2" width="100%" border resizable>
+        <el-table-column type="expand">
+          <template slot-scope="props">
+            <el-table :data="props.row.ids" :show-header="false">
+              <el-table-column label="ids">
+                <template slot-scope="scope">
+                  <span> {{ scope.row }} </span>
+                </template>
+              </el-table-column>
+            </el-table>
+          </template>
+        </el-table-column>
+        <el-table-column label="db" prop="db"> </el-table-column>
+        <el-table-column label="tab" prop="tab"> </el-table-column>
+        <el-table-column label="uuid" prop="uuid"> </el-table-column>
+        <el-table-column label="result" prop="result"> </el-table-column>
+        <el-table-column label="count" prop="count"> </el-table-column>
+      </el-table>
+    </template>
   </div>
 </template>
 
@@ -79,6 +120,7 @@ export default {
           db: "sang",
           tab: "tab1",
           uuid: "0946347f-543f-4003-803d-8abc16672b7e",
+          result: "不一致",
           curr_task: "g2r",
           sub_tasks: [
             {
@@ -182,6 +224,7 @@ export default {
           db: "sang",
           tab: "tab2",
           uuid: "bf1d25a9-5990-47d2-a8e1-6f52761365ae",
+          result: "不一致",
           curr_task: "g2r",
           sub_tasks: [
             {
@@ -281,6 +324,24 @@ export default {
           ],
         },
       ],
+      tableData2: [
+        {
+          db: "sang1",
+          tab: "tab11",
+          uuid: "0946347f-543f-4003-803d-8abc16672b7e",
+          result: "不一致",
+          count: 3,
+          ids: [5484564868564, 1863514684188, 1463486419848],
+        },
+        {
+          db: "sang1",
+          tab: "tab12",
+          uuid: "0946347f-543f-4003-803d-8abc16672b7e",
+          result: "不一致",
+          count: 3,
+          ids: [5484564868564, 1863514684188, 1463486419848],
+        },
+      ],
     };
   },
   methods: {
@@ -332,5 +393,14 @@ export default {
 }
 .expand .el-table__expand-column .cell {
   display: none;
+}
+/* 表格鼠标悬浮时的样式（高亮） */
+.el-table--enable-row-hover .el-table__body tr:hover {
+  background: rgb(250, 221, 184);
+  border: 1px solid #635b31;
+}
+/*表格鼠标悬停的样式（背景颜色）*/
+.el-table tbody tr:hover > td {
+  background-color: #fff1e3 !important;
 }
 </style>
